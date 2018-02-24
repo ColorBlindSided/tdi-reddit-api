@@ -2,7 +2,7 @@ package main
 
 import (
     "fmt"
-    "html"
+    //"html"
     "log"
     "net/http"
 	
@@ -12,10 +12,12 @@ import (
 func main() {
     
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", Index)
+	router.HandleFunc("/redditer/{search}", RedditSearch)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
-func Index(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+func RedditSearch(w http.ResponseWriter, r *http.Request) {
+    vars := mux.Vars(r)
+    search := vars["search"]
+    fmt.Fprintln(w, "Search:", search)
 }
