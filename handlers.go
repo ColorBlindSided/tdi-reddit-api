@@ -6,7 +6,8 @@ import (
 	"log"
 	"io/ioutil"
 	"time"
-	"fmt"
+	"reflect"
+	"strings"
 	
 	"github.com/gorilla/mux"
 )
@@ -44,6 +45,23 @@ func RedditSearch(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(jsonErr)
 	}
 	
-	fmt.Fprintln(w, "Search:", search)
-	fmt.Fprintln(w, page.Data.Children[0].Data)
+	var results Post_Collection
+	for i := 0; i < len(page.Data.Children); i++ {
+		current_page := page.Data.Children[i]
+		v := reflect.ValueOf(current_page.Data)
+		
+		match := false
+		for f := 0; f < v.NumField() && !match; f++ {
+			value := v.Field(f).Interface()
+			s, ok := value.(string)
+			if ok && strings.Contains(s, search) {
+				match = true
+			}
+		}
+		if match {
+			results.Matches = append(results.Matches, current_page)
+		}
+	}
+	
+	json.NewEncoder(w).Encode(results)
 }

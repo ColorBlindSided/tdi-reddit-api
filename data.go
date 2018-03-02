@@ -1,7 +1,5 @@
 package main
 
-//import "time"
-
 type Page struct {
 	Data struct {
 		Children Posts `json:"children"`
@@ -15,7 +13,7 @@ type Post struct {
 type Post_Data struct {
 	Title			string	`json:"title"`
 	Author 			string 	`json:"author"`
-	//Created			int64	`json:"created_utc"`
+	Created			float64	`json:"created_utc"`
 	Id				string	`json:"id"`
 	Post_Hint		string	`json:"post_hint"`
 	Selftext		string	`json:"selftext"`
@@ -34,3 +32,7 @@ type Post_Data struct {
 }
 
 type Posts []Post
+
+type Post_Collection struct {
+	Matches Posts `json:"matches"`
+}
