@@ -6,6 +6,7 @@ import (
     "github.com/gorilla/mux"
 )
 
+//A struct to store endpoint route data
 type Route struct {
     Name        string
     Method      string
@@ -29,4 +30,5 @@ func NewRouter() *mux.Router {
     return router
 }
 
+//There's only one endpoint, but adding more would be easy
 var routes = Routes{Route{"Redditer","GET","/redditer/{search}",RedditSearch}}

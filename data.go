@@ -1,15 +1,18 @@
 package main
 
+//Designed to match the reddit JSON api format
 type Page struct {
 	Data struct {
 		Children Posts `json:"children"`
 	}
 }
 
+//Designed to match an individual post format in the api
 type Post struct {
 	Data Post_Data `json:"data"`
 }
 
+//The relevant data from a post, organized in order of importance
 type Post_Data struct {
 	Title			string	`json:"title"`
 	Author 			string 	`json:"author"`
@@ -31,8 +34,10 @@ type Post_Data struct {
 	Locked			bool	`json:"locked"`
 }
 
+//A useful type synonym
 type Posts []Post
 
+//A collection of posts. Used for displaying the matching results in JSON format.
 type Post_Collection struct {
 	Matches Posts `json:"matches"`
 }
