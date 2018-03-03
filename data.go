@@ -22,6 +22,7 @@ type Post_Data struct {
 	Selftext		string	`json:"selftext"`
 	Domain			string 	`json:"domain"`
 	URL				string 	`json:"url"`
+	Permalink		string	`json:"permalink"`
 	Thumbnail		string	`json:"thumbnail"`
 	Score			int	`json:"score"`
 	Comments		int	`json:"num_comments"`
